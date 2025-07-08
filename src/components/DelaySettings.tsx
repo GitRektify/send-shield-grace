@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Clock, Shield, Zap, Check, ChevronRight } from 'lucide-react';
+import { Clock, Shield, Zap, Check, ChevronRight, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -14,14 +14,14 @@ interface DelaySettingsProps {
 
 const DelaySettings: React.FC<DelaySettingsProps> = ({ currentDelay, onDelayChange }) => {
   const [isEnabled, setIsEnabled] = useState(true);
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showMoreSettings, setShowMoreSettings] = useState(false);
 
   const presetDelays = [
-    { value: 15, label: '15 seconds', description: 'Quick review' },
-    { value: 30, label: '30 seconds', description: 'Standard protection' },
-    { value: 60, label: '1 minute', description: 'Recommended' },
-    { value: 120, label: '2 minutes', description: 'Extra careful' },
-    { value: 300, label: '5 minutes', description: 'Maximum protection' }
+    { value: 15, label: '15s', description: 'Quick review' },
+    { value: 30, label: '30s', description: 'Standard' },
+    { value: 60, label: '1m', description: 'Recommended' },
+    { value: 120, label: '2m', description: 'Extra careful' },
+    { value: 300, label: '5m', description: 'Maximum' }
   ];
 
   const formatDelay = (seconds: number) => {
@@ -31,17 +31,17 @@ const DelaySettings: React.FC<DelaySettingsProps> = ({ currentDelay, onDelayChan
 
   return (
     <div className="space-y-6">
-      {/* Main Delay Setting */}
-      <Card className="border-0 shadow-sm bg-white/60 backdrop-blur-sm">
-        <CardHeader className="pb-4">
+      {/* Main Delay Setting - Minimal Design */}
+      <Card className="border-0 shadow-sm bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm">
+        <CardHeader className="pb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <Clock className="w-5 h-5 text-blue-600" />
+              <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
-                <CardTitle className="text-lg">Delay Duration</CardTitle>
-                <CardDescription>How long to wait before sending emails</CardDescription>
+                <CardTitle className="text-lg text-slate-900 dark:text-slate-100">Delay Duration</CardTitle>
+                <CardDescription className="dark:text-slate-400">Time before emails are sent</CardDescription>
               </div>
             </div>
             <Switch
@@ -52,43 +52,37 @@ const DelaySettings: React.FC<DelaySettingsProps> = ({ currentDelay, onDelayChan
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            {/* Current Delay Display */}
-            <div className="text-center p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-              <div className="text-3xl font-bold text-blue-600 mb-2">
+          <div className="space-y-8">
+            {/* Current Delay Display - Clean & Minimal */}
+            <div className="text-center p-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-2xl border border-blue-100 dark:border-blue-800">
+              <div className="text-4xl font-light text-blue-600 dark:text-blue-400 mb-2">
                 {formatDelay(currentDelay)}
               </div>
-              <p className="text-blue-600/70">Current delay time</p>
+              <p className="text-blue-600/70 dark:text-blue-400/70 text-sm">Current delay</p>
             </div>
 
-            {/* Preset Options */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {/* Preset Options - Minimal Pills */}
+            <div className="flex flex-wrap gap-2 justify-center">
               {presetDelays.map((preset) => (
                 <button
                   key={preset.value}
                   onClick={() => onDelayChange(preset.value)}
-                  className={`p-4 rounded-xl border-2 transition-all text-left hover:scale-105 ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 ${
                     currentDelay === preset.value
-                      ? 'border-blue-500 bg-blue-50 shadow-lg shadow-blue-500/20'
-                      : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+                      : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-600'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold text-slate-900">{preset.label}</span>
-                    {currentDelay === preset.value && (
-                      <Check className="w-4 h-4 text-blue-600" />
-                    )}
-                  </div>
-                  <p className="text-sm text-slate-600">{preset.description}</p>
+                  {preset.label}
                 </button>
               ))}
             </div>
 
-            {/* Custom Delay Slider */}
+            {/* Custom Slider - Minimal */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-slate-700">Custom delay</label>
-                <span className="text-sm text-slate-500">{formatDelay(currentDelay)}</span>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Custom</label>
+                <span className="text-sm text-slate-500 dark:text-slate-400">{formatDelay(currentDelay)}</span>
               </div>
               <Slider
                 value={[currentDelay]}
@@ -98,7 +92,7 @@ const DelaySettings: React.FC<DelaySettingsProps> = ({ currentDelay, onDelayChan
                 step={5}
                 className="w-full"
               />
-              <div className="flex justify-between text-xs text-slate-400">
+              <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
                 <span>5s</span>
                 <span>5m</span>
               </div>
@@ -107,63 +101,69 @@ const DelaySettings: React.FC<DelaySettingsProps> = ({ currentDelay, onDelayChan
         </CardContent>
       </Card>
 
-      {/* Advanced Settings */}
-      <Card className="border-0 shadow-sm bg-white/60 backdrop-blur-sm">
+      {/* More Settings - Collapsible */}
+      <Card className="border-0 shadow-sm bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm">
         <CardHeader>
           <button
-            onClick={() => setShowAdvanced(!showAdvanced)}
-            className="flex items-center justify-between w-full text-left"
+            onClick={() => setShowMoreSettings(!showMoreSettings)}
+            className="flex items-center justify-between w-full text-left hover:bg-slate-50 dark:hover:bg-slate-700 -m-2 p-2 rounded-lg transition-colors"
           >
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-indigo-100 rounded-lg">
-                <Zap className="w-5 h-5 text-indigo-600" />
+              <div className="p-2 bg-slate-100 dark:bg-slate-700 rounded-lg">
+                <Zap className="w-5 h-5 text-slate-600 dark:text-slate-400" />
               </div>
               <div>
-                <CardTitle className="text-lg">Advanced Options</CardTitle>
-                <CardDescription>Fine-tune your protection settings</CardDescription>
+                <CardTitle className="text-lg text-slate-900 dark:text-slate-100">More Settings</CardTitle>
+                <CardDescription className="dark:text-slate-400">Advanced delay options</CardDescription>
               </div>
             </div>
-            <ChevronRight className={`w-5 h-5 text-slate-400 transition-transform ${showAdvanced ? 'rotate-90' : ''}`} />
+            {showMoreSettings ? (
+              <ChevronDown className="w-5 h-5 text-slate-400" />
+            ) : (
+              <ChevronRight className="w-5 h-5 text-slate-400" />
+            )}
           </button>
         </CardHeader>
-        {showAdvanced && (
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-              <div>
-                <p className="font-medium text-slate-700">Smart weekend delays</p>
-                <p className="text-sm text-slate-500">Extend delay for weekend emails</p>
+        {showMoreSettings && (
+          <CardContent className="space-y-4 pt-0">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+                <div>
+                  <p className="font-medium text-slate-700 dark:text-slate-300">Smart weekend delays</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Extend delay for weekend emails</p>
+                </div>
+                <Switch />
               </div>
-              <Switch />
-            </div>
-            <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-              <div>
-                <p className="font-medium text-slate-700">High-priority bypass</p>
-                <p className="text-sm text-slate-500">Skip delay for urgent emails</p>
+              <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+                <div>
+                  <p className="font-medium text-slate-700 dark:text-slate-300">High-priority bypass</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Skip delay for urgent emails</p>
+                </div>
+                <Switch />
               </div>
-              <Switch />
-            </div>
-            <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
-              <div>
-                <p className="font-medium text-slate-700">Sound notifications</p>
-                <p className="text-sm text-slate-500">Audio alerts during delay</p>
+              <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+                <div>
+                  <p className="font-medium text-slate-700 dark:text-slate-300">Sound notifications</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Audio alerts during delay</p>
+                </div>
+                <Switch />
               </div>
-              <Switch />
             </div>
           </CardContent>
         )}
       </Card>
 
-      {/* Tips */}
-      <Card className="border-0 shadow-sm bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-200">
+      {/* Minimal Tips */}
+      <Card className="border-0 shadow-sm bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950 dark:to-teal-950 border-emerald-200 dark:border-emerald-800">
         <CardContent className="p-6">
           <div className="flex items-start space-x-3">
-            <Shield className="w-5 h-5 text-emerald-600 mt-0.5" />
+            <Shield className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mt-0.5" />
             <div>
-              <h3 className="font-semibold text-emerald-800 mb-2">Protection Tips</h3>
-              <ul className="text-sm text-emerald-700 space-y-1">
-                <li>• 60 seconds provides the perfect balance of protection and convenience</li>
-                <li>• You can edit or cancel emails during the delay period</li>
-                <li>• Weekend delays help prevent after-hours work emails</li>
+              <h3 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">Protection Tips</h3>
+              <ul className="text-sm text-emerald-700 dark:text-emerald-300 space-y-1">
+                <li>• 60 seconds provides the perfect balance</li>
+                <li>• Edit or cancel emails during the delay</li>
+                <li>• Weekend delays prevent after-hours sends</li>
               </ul>
             </div>
           </div>

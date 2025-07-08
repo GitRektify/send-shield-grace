@@ -103,7 +103,7 @@ All colors MUST be HSL.
 
   /* Premium glassmorphism effect */
   .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20;
+    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/20 dark:border-slate-700/20;
   }
 
   /* Subtle grid pattern */
