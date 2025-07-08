@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
 import DelaySettings from '@/components/DelaySettings';
 import UsageAnalytics from '@/components/UsageAnalytics';
 import OutboxManager from '@/components/OutboxManager';
@@ -43,20 +42,23 @@ const Index = () => {
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <Sun className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-                  <Switch
-                    checked={isDarkMode}
-                    onCheckedChange={toggleTheme}
-                    className="data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-500"
-                  />
-                  <Moon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleTheme}
+                  className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                >
+                  {isDarkMode ? (
+                    <Sun className="w-5 h-5 text-amber-500" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-slate-600" />
+                  )}
+                </Button>
                 <Badge variant="secondary" className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/30">
                   <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
                   Active
                 </Badge>
-                <Button variant="ghost" size="sm" className="hover:bg-slate-100 dark:hover:bg-slate-800">
+                <Button variant="ghost" size="sm" className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
                   <User className="w-4 h-4" />
                 </Button>
               </div>
