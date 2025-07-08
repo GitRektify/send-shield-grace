@@ -31,14 +31,14 @@ const Index = () => {
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <img 
-                    src="/lovable-uploads/image.png" 
+                    src="/lovable-uploads/0539f92f-357f-4427-a628-b7d8cdc943a2.png" 
                     alt="Email Magic Logo" 
-                    className="w-10 h-10 rounded-lg"
+                    className="w-12 h-8 object-contain"
                   />
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900"></div>
                 </div>
                 <div>
-                  <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Email Magic: SendShield</h1>
+                  <h1 className="text-xl font-semibold text-slate-900 dark:text-white">SendShield</h1>
                   <p className="text-sm text-slate-500 dark:text-slate-400">Smart delay protection for Gmail</p>
                 </div>
               </div>
@@ -48,11 +48,11 @@ const Index = () => {
                   <Switch
                     checked={isDarkMode}
                     onCheckedChange={toggleTheme}
-                    className="data-[state=checked]:bg-slate-600"
+                    className="data-[state=checked]:bg-blue-600"
                   />
                   <Moon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                 </div>
-                <Badge variant="secondary" className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800">
+                <Badge variant="secondary" className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/30">
                   <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
                   Active
                 </Badge>
@@ -67,21 +67,21 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 py-8">
           {/* Welcome Section */}
           <div className="mb-8">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 rounded-2xl p-8 text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-600 dark:to-blue-700 rounded-2xl p-8 text-white relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/5 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
               <div className="relative">
                 <div className="flex items-start justify-between">
                   <div>
                     <h2 className="text-2xl font-semibold mb-2">Welcome back</h2>
-                    <p className="text-blue-100 dark:text-purple-100 text-lg">Your emails are protected with smart delay sending</p>
+                    <p className="text-blue-100 text-lg">Your emails are protected with smart delay sending</p>
                     <div className="flex items-center mt-4 space-x-6">
                       <div className="flex items-center space-x-2">
-                        <Clock className="w-5 h-5 text-blue-200 dark:text-purple-200" />
-                        <span className="text-blue-100 dark:text-purple-100">{currentDelay}s delay active</span>
+                        <Clock className="w-5 h-5 text-blue-200" />
+                        <span className="text-blue-100">{currentDelay}s delay active</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Shield className="w-5 h-5 text-blue-200 dark:text-purple-200" />
-                        <span className="text-blue-100 dark:text-purple-100">12 emails protected today</span>
+                        <Shield className="w-5 h-5 text-blue-200" />
+                        <span className="text-blue-100">12 emails protected today</span>
                       </div>
                     </div>
                   </div>
@@ -95,20 +95,20 @@ const Index = () => {
 
           {/* Main Content */}
           <Tabs defaultValue="settings" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4 bg-slate-100/50 dark:bg-slate-800/50 backdrop-blur-sm">
-              <TabsTrigger value="settings" className="flex items-center space-x-2">
+            <TabsList className="grid w-full grid-cols-4 bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm">
+              <TabsTrigger value="settings" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
                 <Settings className="w-4 h-4" />
                 <span>Settings</span>
               </TabsTrigger>
-              <TabsTrigger value="outbox" className="flex items-center space-x-2">
+              <TabsTrigger value="outbox" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
                 <Mail className="w-4 h-4" />
                 <span>Outbox</span>
               </TabsTrigger>
-              <TabsTrigger value="analytics" className="flex items-center space-x-2">
+              <TabsTrigger value="analytics" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
                 <BarChart3 className="w-4 h-4" />
                 <span>Analytics</span>
               </TabsTrigger>
-              <TabsTrigger value="preview" className="flex items-center space-x-2">
+              <TabsTrigger value="preview" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
                 <Zap className="w-4 h-4" />
                 <span>Preview</span>
               </TabsTrigger>
