@@ -22,10 +22,10 @@ const Index = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
         {/* Header */}
-        <header className="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50">
+        <header className="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
           <div className="max-w-6xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
@@ -48,7 +48,7 @@ const Index = () => {
                   <Switch
                     checked={isDarkMode}
                     onCheckedChange={toggleTheme}
-                    className="data-[state=checked]:bg-blue-600"
+                    className="data-[state=checked]:bg-blue-600 dark:data-[state=checked]:bg-blue-500"
                   />
                   <Moon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                 </div>
@@ -56,7 +56,7 @@ const Index = () => {
                   <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
                   Active
                 </Badge>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="hover:bg-slate-100 dark:hover:bg-slate-800">
                   <User className="w-4 h-4" />
                 </Button>
               </div>
@@ -95,20 +95,32 @@ const Index = () => {
 
           {/* Main Content */}
           <Tabs defaultValue="settings" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4 bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm">
-              <TabsTrigger value="settings" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
+            <TabsList className="grid w-full grid-cols-4 bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm border dark:border-slate-700">
+              <TabsTrigger 
+                value="settings" 
+                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
+              >
                 <Settings className="w-4 h-4" />
                 <span>Settings</span>
               </TabsTrigger>
-              <TabsTrigger value="outbox" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
+              <TabsTrigger 
+                value="outbox" 
+                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
+              >
                 <Mail className="w-4 h-4" />
                 <span>Outbox</span>
               </TabsTrigger>
-              <TabsTrigger value="analytics" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
+              <TabsTrigger 
+                value="analytics" 
+                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
+              >
                 <BarChart3 className="w-4 h-4" />
                 <span>Analytics</span>
               </TabsTrigger>
-              <TabsTrigger value="preview" className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700">
+              <TabsTrigger 
+                value="preview" 
+                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
+              >
                 <Zap className="w-4 h-4" />
                 <span>Preview</span>
               </TabsTrigger>
