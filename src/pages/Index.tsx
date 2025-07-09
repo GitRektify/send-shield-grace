@@ -105,7 +105,7 @@ const Index = () => {
                 <Settings className="w-4 h-4" />
                 <span>Settings</span>
               </TabsTrigger>
-{/*               <TabsTrigger 
+              {/* <TabsTrigger 
                 value="outbox" 
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
@@ -119,14 +119,14 @@ const Index = () => {
                 <BarChart3 className="w-4 h-4" />
                 <span>Analytics</span>
               </TabsTrigger>
-{/*               <TabsTrigger 
+              {/* <TabsTrigger 
                 value="preview" 
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
                 <Zap className="w-4 h-4" />
                 <span>Preview</span>
-              </TabsTrigger>
-            </TabsList> */}
+              </TabsTrigger> */}
+            </TabsList>
 
             <TabsContent value="settings">
               <DelaySettings currentDelay={currentDelay} onDelayChange={setCurrentDelay} />
