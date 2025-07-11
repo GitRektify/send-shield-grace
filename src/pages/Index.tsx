@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -48,6 +47,11 @@ const Index = () => {
     }
   };
 
+  const formatDelay = (seconds: number) => {
+    if (seconds < 60) return `${seconds}s`;
+    return `${Math.floor(seconds / 60)}m ${seconds % 60}s`.replace(' 0s', '');
+  };
+
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
@@ -83,7 +87,7 @@ const Index = () => {
                 </Button>
                 <Badge variant="secondary" className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/30">
                   <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
-                  Active
+                  {formatDelay(currentDelay)}
                 </Badge>
                 <Button variant="ghost" size="sm" className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
                   <User className="w-4 h-4" />
