@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,9 +21,9 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-blue-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 transition-colors duration-300">
         {/* Header */}
-        <header className="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
+        <header className="border-b border-slate-300/60 dark:border-slate-600/60 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300 shadow-sm dark:shadow-slate-900/20">
           <div className="max-w-6xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
@@ -69,7 +68,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 py-8">
           {/* Welcome Section */}
           <div className="mb-8">
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-600 dark:to-blue-700 rounded-2xl p-8 text-white relative overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 rounded-2xl p-8 text-white relative overflow-hidden shadow-lg dark:shadow-slate-900/30">
               <div className="absolute inset-0 bg-white/5 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
               <div className="relative">
                 <div className="flex items-start justify-between">
@@ -97,7 +96,7 @@ const Index = () => {
 
           {/* Main Content */}
           <Tabs defaultValue="settings" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2 bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm border dark:border-slate-700">
+            <TabsList className="grid w-full grid-cols-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-sm">
               <TabsTrigger 
                 value="settings" 
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
