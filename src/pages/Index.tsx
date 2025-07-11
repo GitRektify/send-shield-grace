@@ -50,17 +50,17 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
-      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-blue-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
         {/* Header */}
-        <header className="border-b border-slate-300/60 dark:border-slate-600/60 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300 shadow-sm dark:shadow-slate-900/20">
+        <header className="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
           <div className="max-w-6xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="relative">
-                  <img 
-                    src="/lovable-uploads/0539f92f-357f-4427-a628-b7d8cdc943a2.png" 
-                    alt="Email Magic Logo" 
-                    className="w-12 h-8 object-contain"
+                  <img
+                    src="@/assets/images/email-magic-logo.png"
+                    alt="Email Magic Logo"
+                    className="w-20 h-8 object-contain"
                   />
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900"></div>
                 </div>
@@ -125,30 +125,30 @@ const Index = () => {
 
           {/* Main Content */}
           <Tabs defaultValue="settings" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-sm">
-              <TabsTrigger 
-                value="settings" 
+            <TabsList className="grid w-full grid-cols-2 bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm border dark:border-slate-700">
+              <TabsTrigger
+                value="settings"
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
                 <Settings className="w-4 h-4" />
                 <span>Settings</span>
               </TabsTrigger>
-              {/* <TabsTrigger 
-                value="outbox" 
+              {/* <TabsTrigger
+                value="outbox"
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
                 <Mail className="w-4 h-4" />
                 <span>Outbox</span>
               </TabsTrigger> */}
-              <TabsTrigger 
-                value="analytics" 
+              <TabsTrigger
+                value="analytics"
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Analytics</span>
               </TabsTrigger>
-              {/* <TabsTrigger 
-                value="preview" 
+              {/* <TabsTrigger
+                value="preview"
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
                 <Zap className="w-4 h-4" />
