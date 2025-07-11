@@ -58,7 +58,7 @@ const Index = () => {
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <img
-                    src="@/assets/images/email-magic-logo.png"
+                    src="/images/email-magic-logo.png"
                     alt="Email Magic Logo"
                     className="w-20 h-8 object-contain"
                   />
