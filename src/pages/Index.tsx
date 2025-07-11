@@ -13,6 +13,7 @@ const Index = () => {
   const [currentDelay, setCurrentDelay] = useState(60);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
+  const [isDelayEnabled, setIsDelayEnabled] = useState(true); // Track delay enabled state
 
   // Load theme preference from localStorage on component mount
   useEffect(() => {
@@ -85,9 +86,18 @@ const Index = () => {
                     <Moon className="w-5 h-5 text-slate-600" />
                   )}
                 </Button>
-                <Badge variant="secondary" className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/30">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
-                  {formatDelay(currentDelay)}
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    isDelayEnabled 
+                      ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/30'
+                      : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800/30'
+                  }`}
+                >
+                  <div className={`w-2 h-2 rounded-full mr-2 ${
+                    isDelayEnabled ? 'bg-emerald-500' : 'bg-red-500'
+                  }`}></div>
+                  {isDelayEnabled ? 'Active' : 'Inactive'}
                 </Badge>
                 <Button variant="ghost" size="sm" className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
                   <User className="w-4 h-4" />
@@ -160,7 +170,11 @@ const Index = () => {
             </TabsList>
 
             <TabsContent value="settings">
-              <DelaySettings currentDelay={currentDelay} onDelayChange={setCurrentDelay} />
+              <DelaySettings 
+                currentDelay={currentDelay} 
+                onDelayChange={setCurrentDelay}
+                onEnabledChange={setIsDelayEnabled}
+              />
             </TabsContent>
 
             <TabsContent value="outbox">
