@@ -65,7 +65,7 @@ const Index = () => {
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900"></div>
                 </div>
                 <div>
-                  <h1 className="text-xl font-semibold text-slate-900 dark:text-white">SendShield</h1>
+                  <h1 className="text-xl font-semibold text-slate-900 dark:text-white">Delay Send</h1>
                   <p className="text-sm text-slate-500 dark:text-slate-400">Smart delay protection for Gmail</p>
                 </div>
               </div>
@@ -96,7 +96,7 @@ const Index = () => {
 
         <div className="max-w-6xl mx-auto px-6 py-8">
           {/* Welcome Section */}
-          <div className="mb-8">
+          {/* <div className="mb-8">
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 rounded-2xl p-8 text-white relative overflow-hidden shadow-lg dark:shadow-slate-900/30">
               <div className="absolute inset-0 bg-white/5 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
               <div className="relative">
@@ -121,7 +121,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Main Content */}
           <Tabs defaultValue="settings" className="space-y-6">
