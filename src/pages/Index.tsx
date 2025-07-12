@@ -102,20 +102,20 @@ const Index = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen min-w-[360px] transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
         {/* Header */}
         <header className="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
           <div className="max-w-6xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="relative">
+                {/* <div className="relative"> */}
                   <img
                     src="/images/email-magic-logo.png"
                     alt="Email Magic Logo"
                     className="w-12 h-8 object-contain"
                   />
-                </div>
+                {/* </div> */}
                 <div>
                   <h1 className="text-md font-semibold text-slate-900 dark:text-white">Delay Send</h1>
                   {/* <p className="text-sm text-slate-500 dark:text-slate-400">Smart delay protection for Gmail</p> */}
