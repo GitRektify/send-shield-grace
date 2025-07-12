@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,10 +12,11 @@ import InEmailPreview from '@/components/InEmailPreview';
 const Index = () => {
   const [currentDelay, setCurrentDelay] = useState(60);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
-  const [isDelayEnabled, setIsDelayEnabled] = useState(true); // Track delay enabled state
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDelayEnabled, setIsDelayEnabled] = useState(true);
+  const [activeTab, setActiveTab] = useState('settings');
 
-  // Load theme preference and delay settings from localStorage on component mount
+  // Load ALL state from localStorage on component mount
   useEffect(() => {
     // Load theme preference
     const savedTheme = localStorage.getItem('theme');
@@ -29,23 +29,35 @@ const Index = () => {
         document.documentElement.classList.remove('dark');
       }
     } else {
-      // If no saved preference, use default (dark mode)
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     }
 
-    // Load delay settings
+    // Load delay enabled state
     const savedDelayEnabled = localStorage.getItem('delayEnabled');
     if (savedDelayEnabled !== null) {
       setIsDelayEnabled(savedDelayEnabled === 'true');
     }
 
+    // Load delay duration
     const savedDelayDuration = localStorage.getItem('delayDuration');
     if (savedDelayDuration !== null) {
       const duration = parseInt(savedDelayDuration, 10);
       if (!isNaN(duration)) {
         setCurrentDelay(duration);
       }
+    }
+
+    // Load active tab
+    const savedActiveTab = localStorage.getItem('activeTab');
+    if (savedActiveTab !== null) {
+      setActiveTab(savedActiveTab);
+    }
+
+    // Load authentication state
+    const savedAuthState = localStorage.getItem('isAuthenticated');
+    if (savedAuthState !== null) {
+      setIsAuthenticated(savedAuthState === 'true');
     }
   }, []);
 
@@ -72,6 +84,16 @@ const Index = () => {
   const handleDelayChange = (delay: number) => {
     setCurrentDelay(delay);
     localStorage.setItem('delayDuration', delay.toString());
+  };
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    localStorage.setItem('activeTab', value);
+  };
+
+  const handleAuthChange = (authenticated: boolean) => {
+    setIsAuthenticated(authenticated);
+    localStorage.setItem('isAuthenticated', authenticated.toString());
   };
 
   const formatDelay = (seconds: number) => {
@@ -134,36 +156,8 @@ const Index = () => {
         </header>
 
         <div className="max-w-6xl mx-auto px-6 py-8">
-          {/* Welcome Section */}
-          {/* <div className="mb-8">
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-600 dark:to-blue-700 rounded-2xl p-8 text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-white/5 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
-              <div className="relative">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h2 className="text-2xl font-semibold mb-2">Welcome back</h2>
-                    <p className="text-blue-100 text-lg">Your emails are protected with smart delay sending</p>
-                    <div className="flex items-center mt-4 space-x-6">
-                      <div className="flex items-center space-x-2">
-                        <Clock className="w-5 h-5 text-blue-200" />
-                        <span className="text-blue-100">{currentDelay}s delay active</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Shield className="w-5 h-5 text-blue-200" />
-                        <span className="text-blue-100">12 emails protected today</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                    <Shield className="w-12 h-12 text-white" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           {/* Main Content */}
-          <Tabs defaultValue="settings" className="space-y-6">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
             <TabsList className="grid w-full grid-cols-2 bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm border dark:border-slate-700">
               <TabsTrigger 
                 value="settings" 
@@ -172,13 +166,6 @@ const Index = () => {
                 <Settings className="w-4 h-4" />
                 <span>Settings</span>
               </TabsTrigger>
-              {/* <TabsTrigger 
-                value="outbox" 
-                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
-              >
-                <Mail className="w-4 h-4" />
-                <span>Outbox</span>
-              </TabsTrigger> */}
               <TabsTrigger 
                 value="analytics" 
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
@@ -186,13 +173,6 @@ const Index = () => {
                 <BarChart3 className="w-4 h-4" />
                 <span>Analytics</span>
               </TabsTrigger>
-              {/* <TabsTrigger 
-                value="preview" 
-                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
-              >
-                <Zap className="w-4 h-4" />
-                <span>Preview</span>
-              </TabsTrigger> */}
             </TabsList>
 
             <TabsContent value="settings">
