@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,8 +16,9 @@ const Index = () => {
   const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
   const [isDelayEnabled, setIsDelayEnabled] = useState(true); // Track delay enabled state
 
-  // Load theme preference from localStorage on component mount
+  // Load theme preference and delay settings from localStorage on component mount
   useEffect(() => {
+    // Load theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme !== null) {
       const isDark = savedTheme === 'dark';
@@ -30,6 +32,20 @@ const Index = () => {
       // If no saved preference, use default (dark mode)
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
+    }
+
+    // Load delay settings
+    const savedDelayEnabled = localStorage.getItem('delayEnabled');
+    if (savedDelayEnabled !== null) {
+      setIsDelayEnabled(savedDelayEnabled === 'true');
+    }
+
+    const savedDelayDuration = localStorage.getItem('delayDuration');
+    if (savedDelayDuration !== null) {
+      const duration = parseInt(savedDelayDuration, 10);
+      if (!isNaN(duration)) {
+        setCurrentDelay(duration);
+      }
     }
   }, []);
 
@@ -46,6 +62,16 @@ const Index = () => {
     } else {
       document.documentElement.classList.remove('dark');
     }
+  };
+
+  const handleDelayEnabledChange = (enabled: boolean) => {
+    setIsDelayEnabled(enabled);
+    localStorage.setItem('delayEnabled', enabled.toString());
+  };
+
+  const handleDelayChange = (delay: number) => {
+    setCurrentDelay(delay);
+    localStorage.setItem('delayDuration', delay.toString());
   };
 
   const formatDelay = (seconds: number) => {
@@ -172,8 +198,8 @@ const Index = () => {
             <TabsContent value="settings">
               <DelaySettings 
                 currentDelay={currentDelay} 
-                onDelayChange={setCurrentDelay}
-                onEnabledChange={setIsDelayEnabled}
+                onDelayChange={handleDelayChange}
+                onEnabledChange={handleDelayEnabledChange}
               />
             </TabsContent>
 
