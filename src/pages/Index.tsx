@@ -64,10 +64,10 @@ const Index = () => {
   const toggleTheme = () => {
     const newTheme = !isDarkMode;
     setIsDarkMode(newTheme);
-    
+
     // Save to localStorage
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-    
+
     // Apply to document
     if (newTheme) {
       document.documentElement.classList.add('dark');
@@ -134,6 +134,20 @@ const Index = () => {
                     <Moon className="w-5 h-5 text-slate-600" />
                   )}
                 </Button>
+<<<<<<< HEAD
+                <Badge
+                  variant="secondary"
+                  className={`${
+                    isDelayEnabled
+                      ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/30'
+                      : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800/30'
+                  }`}
+                >
+                  <div className={`w-2 h-2 rounded-full mr-2 ${
+                    isDelayEnabled ? 'bg-emerald-500' : 'bg-red-500'
+                  }`}></div>
+                  {isDelayEnabled ? 'Active' : 'Inactive'}
+=======
                 <Badge 
                   variant="secondary" 
                   className={`${
@@ -146,6 +160,7 @@ const Index = () => {
                     isDelayEnabled ? 'bg-emerald-500' : 'bg-red-500'
                   }`}></div>
                   {isDelayEnabled ? 'Active' : 'Inactive'}
+>>>>>>> 44d3ab9af7804fae845adf9e55df1a2a52d3e20d
                 </Badge>
                 <Button variant="ghost" size="sm" className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
                   <User className="w-4 h-4" />
@@ -159,28 +174,58 @@ const Index = () => {
           {/* Main Content */}
           <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
             <TabsList className="grid w-full grid-cols-2 bg-slate-100/80 dark:bg-slate-800/80 backdrop-blur-sm border dark:border-slate-700">
-              <TabsTrigger 
-                value="settings" 
+              <TabsTrigger
+                value="settings"
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
                 <Settings className="w-4 h-4" />
                 <span>Settings</span>
               </TabsTrigger>
+<<<<<<< HEAD
+              {/* <TabsTrigger
+                value="outbox"
+                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Outbox</span>
+              </TabsTrigger> */}
+              <TabsTrigger
+                value="analytics"
+=======
               <TabsTrigger 
                 value="analytics" 
+>>>>>>> 44d3ab9af7804fae845adf9e55df1a2a52d3e20d
                 className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Analytics</span>
               </TabsTrigger>
+<<<<<<< HEAD
+              {/* <TabsTrigger
+                value="preview"
+                className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white text-slate-600 dark:text-slate-400"
+              >
+                <Zap className="w-4 h-4" />
+                <span>Preview</span>
+              </TabsTrigger> */}
+=======
+>>>>>>> 44d3ab9af7804fae845adf9e55df1a2a52d3e20d
             </TabsList>
 
             <TabsContent value="settings">
+<<<<<<< HEAD
+              <DelaySettings
+                currentDelay={currentDelay}
+                onDelayChange={handleDelayChange}
+                onEnabledChange={handleDelayEnabledChange}
+              />
+=======
               <DelaySettings 
                 currentDelay={currentDelay} 
                 onDelayChange={handleDelayChange}
                 onEnabledChange={handleDelayEnabledChange}
               />
+>>>>>>> 44d3ab9af7804fae845adf9e55df1a2a52d3e20d
             </TabsContent>
 
             <TabsContent value="outbox">
