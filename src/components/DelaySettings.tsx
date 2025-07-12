@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Clock, Shield, Zap, Check, ChevronRight, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,7 +25,8 @@ const DelaySettings: React.FC<DelaySettingsProps> = ({
 
   // Load ALL DelaySettings state from localStorage
   useEffect(() => {
-    const savedEnabled = localStorage.getItem('delaySettings_isEnabled');
+    // Load main enabled state from the same key as Index.tsx
+    const savedEnabled = localStorage.getItem('delayEnabled');
     if (savedEnabled !== null) {
       setIsEnabled(savedEnabled === 'true');
     }
@@ -55,7 +54,8 @@ const DelaySettings: React.FC<DelaySettingsProps> = ({
 
   const handleEnabledChange = (enabled: boolean) => {
     setIsEnabled(enabled);
-    localStorage.setItem('delaySettings_isEnabled', enabled.toString());
+    // Save to the main localStorage key that Index.tsx uses
+    localStorage.setItem('delayEnabled', enabled.toString());
     if (onEnabledChange) {
       onEnabledChange(enabled);
     }
@@ -249,4 +249,3 @@ const DelaySettings: React.FC<DelaySettingsProps> = ({
 };
 
 export default DelaySettings;
-
