@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon, LogOut, Crown, LogIn, UserPlus } from 'lucide-react';
+import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon, LogOut, Crown, LogIn, UserPlus, Key } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import DelaySettings from '@/components/DelaySettings';
 import UsageAnalytics from '@/components/UsageAnalytics';
 import OutboxManager from '@/components/OutboxManager';
@@ -21,6 +23,8 @@ const Index = () => {
   // Virtual authentication state
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [licenseKey, setLicenseKey] = useState('');
 
   // Mock user data for when signed in
   const mockUser = {
@@ -114,6 +118,18 @@ const Index = () => {
     setIsSignedIn(false);
     localStorage.setItem('isSignedIn', 'false');
     setShowAuthModal(false);
+  };
+
+  const handleUpgrade = () => {
+    // Here you would send the license key to your server
+    console.log('Upgrading with license:', licenseKey);
+    setShowUpgradeModal(false);
+    setLicenseKey('');
+  };
+
+  const openUpgradeModal = () => {
+    setShowAuthModal(false);
+    setShowUpgradeModal(true);
   };
 
   const formatDelay = (seconds: number) => {
@@ -312,6 +328,7 @@ const Index = () => {
                     <Button 
                       className="w-full justify-start bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 shadow-lg font-medium"
                       size="lg"
+                      onClick={openUpgradeModal}
                     >
                       <Crown className="w-5 h-5 mr-3" />
                       Upgrade to Pro
@@ -362,6 +379,7 @@ const Index = () => {
                     <Button 
                       className="w-full justify-start bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 shadow-lg font-medium"
                       size="lg"
+                      onClick={openUpgradeModal}
                     >
                       <Crown className="w-5 h-5 mr-3" />
                       Upgrade to Pro
@@ -369,6 +387,66 @@ const Index = () => {
                   </div>
                 </>
               )}
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Upgrade Modal */}
+        <Dialog open={showUpgradeModal} onOpenChange={setShowUpgradeModal}>
+          <DialogContent className="sm:max-w-[420px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-semibold text-slate-900 dark:text-white flex items-center">
+                <Crown className="w-6 h-6 mr-3 text-amber-500" />
+                Upgrade to Pro
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-6 pt-4">
+              <div className="text-center space-y-2">
+                <p className="text-slate-600 dark:text-slate-400">
+                  Enter your license key to unlock premium features
+                </p>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="license" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                    License Key
+                  </Label>
+                  <div className="relative">
+                    <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <Input
+                      id="license"
+                      type="text"
+                      placeholder="Enter your license key"
+                      value={licenseKey}
+                      onChange={(e) => setLicenseKey(e.target.value)}
+                      className="pl-10 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                    />
+                  </div>
+                </div>
+                
+                <div className="space-y-3 pt-2">
+                  <Button 
+                    onClick={handleUpgrade}
+                    disabled={!licenseKey.trim()}
+                    className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 disabled:from-slate-300 disabled:to-slate-400 text-white border-0 shadow-lg font-medium"
+                    size="lg"
+                  >
+                    <Crown className="w-5 h-5 mr-3" />
+                    Activate License
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setShowUpgradeModal(false)}
+                    className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                    size="lg"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
