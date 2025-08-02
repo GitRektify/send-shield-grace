@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon } from 'lucide-react';
+import { Shield, Clock, Settings, BarChart3, User, Mail, Zap, Check, ArrowRight, Sun, Moon, LogOut, Crown, LogIn, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
 import DelaySettings from '@/components/DelaySettings';
 import UsageAnalytics from '@/components/UsageAnalytics';
 import OutboxManager from '@/components/OutboxManager';
@@ -11,10 +14,20 @@ import InEmailPreview from '@/components/InEmailPreview';
 
 const Index = () => {
   const [currentDelay, setCurrentDelay] = useState(60);
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isDelayEnabled, setIsDelayEnabled] = useState(true);
   const [activeTab, setActiveTab] = useState('settings');
+  
+  // Virtual authentication state
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  // Mock user data for when signed in
+  const mockUser = {
+    email: "user@example.com",
+    name: "John Doe",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face&auto=format"
+  };
 
   // Load ALL state from localStorage on component mount
   useEffect(() => {
@@ -54,10 +67,10 @@ const Index = () => {
       setActiveTab(savedActiveTab);
     }
 
-    // Load authentication state
-    const savedAuthState = localStorage.getItem('isAuthenticated');
-    if (savedAuthState !== null) {
-      setIsAuthenticated(savedAuthState === 'true');
+    // Load sign in state
+    const savedSignInState = localStorage.getItem('isSignedIn');
+    if (savedSignInState !== null) {
+      setIsSignedIn(savedSignInState === 'true');
     }
   }, []);
 
@@ -91,9 +104,16 @@ const Index = () => {
     localStorage.setItem('activeTab', value);
   };
 
-  const handleAuthChange = (authenticated: boolean) => {
-    setIsAuthenticated(authenticated);
-    localStorage.setItem('isAuthenticated', authenticated.toString());
+  const handleSignIn = () => {
+    setIsSignedIn(true);
+    localStorage.setItem('isSignedIn', 'true');
+    setShowAuthModal(false);
+  };
+
+  const handleSignOut = () => {
+    setIsSignedIn(false);
+    localStorage.setItem('isSignedIn', 'false');
+    setShowAuthModal(false);
   };
 
   const formatDelay = (seconds: number) => {
@@ -147,9 +167,30 @@ const Index = () => {
                   }`}></div>
                   {isDelayEnabled ? 'Active' : 'Inactive'}
                 </Badge>
-                <Button variant="ghost" size="sm" className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
-                  <User className="w-4 h-4" />
-                </Button>
+                {isSignedIn ? (
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => setShowAuthModal(true)}
+                    className="hover:bg-slate-100 dark:hover:bg-slate-800 p-2"
+                  >
+                    <Avatar className="w-6 h-6">
+                      <AvatarImage src={mockUser.avatar} alt={mockUser.name} />
+                      <AvatarFallback className="text-xs bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                        {mockUser.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => setShowAuthModal(true)}
+                    className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                  >
+                    <User className="w-4 h-4" />
+                  </Button>
+                )}
               </div>
             </div>
           </div>
@@ -238,6 +279,99 @@ const Index = () => {
             </TabsContent>
           </Tabs>
         </div>
+
+        {/* Authentication Modal */}
+        <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
+          <DialogContent className="sm:max-w-[420px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-semibold text-slate-900 dark:text-white">
+                {isSignedIn ? 'Account' : 'Welcome'}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-6 pt-4">
+              {isSignedIn ? (
+                // Signed In State
+                <>
+                  <div className="flex items-center space-x-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage src={mockUser.avatar} alt={mockUser.name} />
+                      <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold">
+                        {mockUser.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-slate-900 dark:text-white">{mockUser.name}</h3>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">{mockUser.email}</p>
+                    </div>
+                  </div>
+                  
+                  <Separator className="bg-slate-200 dark:bg-slate-700" />
+                  
+                  <div className="space-y-3">
+                    <Button 
+                      className="w-full justify-start bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 shadow-lg font-medium"
+                      size="lg"
+                    >
+                      <Crown className="w-5 h-5 mr-3" />
+                      Upgrade to Pro
+                    </Button>
+                    
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                      size="lg"
+                      onClick={handleSignOut}
+                    >
+                      <LogOut className="w-5 h-5 mr-3" />
+                      Sign Out
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                // Signed Out State
+                <>
+                  <div className="text-center space-y-2">
+                    <p className="text-slate-600 dark:text-slate-400">
+                      Sign in to sync your settings and access premium features
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <Button 
+                      className="w-full justify-start bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white border-0 shadow-lg font-medium"
+                      size="lg"
+                      onClick={handleSignIn}
+                    >
+                      <LogIn className="w-5 h-5 mr-3" />
+                      Sign In
+                    </Button>
+                    
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                      size="lg"
+                      onClick={handleSignIn}
+                    >
+                      <UserPlus className="w-5 h-5 mr-3" />
+                      Create Account
+                    </Button>
+                    
+                    <Separator className="bg-slate-200 dark:bg-slate-700" />
+                    
+                    <Button 
+                      className="w-full justify-start bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 shadow-lg font-medium"
+                      size="lg"
+                    >
+                      <Crown className="w-5 h-5 mr-3" />
+                      Upgrade to Pro
+                    </Button>
+                  </div>
+                </>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
