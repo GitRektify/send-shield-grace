@@ -25,6 +25,8 @@ const Index = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [licenseKey, setLicenseKey] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('');
 
   // Mock user data for when signed in
   const mockUser = {
@@ -108,10 +110,23 @@ const Index = () => {
     localStorage.setItem('activeTab', value);
   };
 
-  const handleSignIn = () => {
-    setIsSignedIn(true);
-    localStorage.setItem('isSignedIn', 'true');
+  const handleSignIn = async () => {
+    setLoadingText('Signing in...');
+    setIsLoading(true);
     setShowAuthModal(false);
+    
+    // Simulate Chrome identity API call
+    try {
+      // await chrome.identity.launchWebAuthFlow(...)
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate loading
+      
+      setIsSignedIn(true);
+      localStorage.setItem('isSignedIn', 'true');
+    } catch (error) {
+      console.error('Sign in failed:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSignOut = () => {
@@ -447,6 +462,20 @@ const Index = () => {
                   </Button>
                 </div>
               </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Loading Modal */}
+        <Dialog open={isLoading} onOpenChange={() => {}}>
+          <DialogContent className="sm:max-w-[300px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-center">
+            <div className="space-y-4 py-6">
+              <div className="flex justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent"></div>
+              </div>
+              <p className="text-slate-700 dark:text-slate-300 font-medium">
+                {loadingText}
+              </p>
             </div>
           </DialogContent>
         </Dialog>
